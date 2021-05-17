@@ -1,0 +1,63 @@
+<app-infobar
+  [data]="countryInfo"
+  [countries]="countries"
+  (newDateEvent)="setNewDate($event)"
+  (newCountryEvent)="setNewCountry($event)"
+  *ngIf="!isFetchingCountries"
+></app-infobar>
+
+<app-error [errors]="error" *ngIf="error"></app-error>
+
+<div class="wrapper">
+  <app-spinner *ngIf="isFetchingCountries"></app-spinner>
+
+  <div *ngIf="!isFetchingHistory && !error">
+    <div class="chart-wrapper" id="newCases">
+      <app-bar-chart
+        [cases]="newCases"
+        [config]="config.newCases"
+      ></app-bar-chart>
+    </div>
+
+    <div class="chart-wrapper" id="newDeaths">
+      <app-bar-chart
+        [cases]="newDeaths"
+        [config]="config.newDeaths"
+      ></app-bar-chart>
+    </div>
+
+    <div class="chart-wrapper" id="cases">
+      <app-core-chart [data]="cases" [config]="config.cases"></app-core-chart>
+    </div>
+
+    <div class="chart-wrapper" id="tests">
+      <app-core-chart [data]="tests" [config]="config.tests"></app-core-chart>
+    </div>
+
+    <div class="chart-wrapper" id="criticalCases">
+      <app-core-chart
+        [data]="criticalCases"
+        [config]="config.criticalCases"
+      ></app-core-chart>
+    </div>
+
+    <div class="chart-wrapper" id="recoveredCases">
+      <app-core-chart
+        class="t"
+        [data]="recoveredCases"
+        [config]="config.recoveredCases"
+      ></app-core-chart>
+    </div>
+
+    <div class="chart-wrapper" id="totalCases">
+      <app-core-chart
+        [data]="totalCases"
+        [config]="config.totalCases"
+      ></app-core-chart>
+    </div>
+
+    <app-spinner *ngIf="isFetchingHistory && !error"></app-spinner>
+  </div>
+</div>
+
+<app-footer></app-footer>

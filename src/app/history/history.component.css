@@ -1,0 +1,26 @@
+:host {
+  width: 100%;
+}
+
+.wrapper {
+  margin: 40px auto 0;
+  width: 70%;
+  min-height: 100vh;
+}
+
+.chart-wrapper {
+  padding-top: 160px;
+  margin-top: -160px;
+}
+
+@media screen and (max-width: 992px) {
+  .wrapper {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .wrapper {
+    width: 95%;
+  }
+}

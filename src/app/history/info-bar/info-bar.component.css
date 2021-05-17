@@ -1,0 +1,115 @@
+.infobar {
+  position: fixed;
+  top: 60px;
+  background-color: white;
+  min-height: 70px;
+  width: 100%;
+  padding: 0 auto;
+  display: flex;
+  position: sticky;
+  transition: top 0.5s ease-in-out;
+  z-index: 3;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.12), 0 0px 0px rgba(0, 0, 0, 0.24);
+}
+
+.data-tile,
+.data-tile-input {
+  width: 20%;
+  padding: 16px 10px 0;
+  margin: 0 auto;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.visibility-tile {
+  display: none;
+  background-color: #448aff;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 1px;
+  text-align: center;
+  color: white;
+}
+
+.hide {
+  top: -85px;
+  transition: top 0.5s ease-in-out;
+}
+
+.data-title {
+  margin-bottom: 4px;
+  font-size: 12px;
+  color: grey;
+}
+
+.data-tile {
+  text-align: center;
+}
+
+.text-bold {
+  font-weight: 550;
+}
+
+.text-red {
+  color: red;
+}
+
+.text-green {
+  color: green;
+}
+
+.text-blue {
+  color: #448aff;
+}
+
+@media screen and (max-width: 992px) {
+  .infobar {
+    flex-wrap: wrap;
+  }
+
+  .data-tile-input {
+    width: 45%;
+  }
+
+  .data-tile {
+    margin: auto;
+    width: 25%;
+    padding-top: 0;
+  }
+}
+@media screen and (max-width: 787px) {
+  .visibility-tile {
+    display: block;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .data-tile {
+    width: 30%;
+    padding: 0;
+    height: 100%;
+  }
+
+  .hide {
+    top: -160px;
+  }
+
+  .data-tile-input:first-of-type {
+    margin: 10px auto;
+  }
+
+  .data-tile-input {
+    width: 95%;
+    margin: 0px auto;
+    padding: 0 5px;
+  }
+}
+
+@media screen and (max-width: 376px) {
+  .hide {
+    top: -180px;
+  }
+}

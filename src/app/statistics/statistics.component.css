@@ -1,0 +1,47 @@
+:host {
+  margin: auto;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.wrapper {
+  width: 70%;
+  margin: auto;
+  min-height: 100vh;
+}
+
+.search-bar {
+  margin: 10px 0;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+mat-paginator {
+  width: 100%;
+  margin: auto;
+}
+
+table {
+  width: 100%;
+  margin: auto;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.12), 0 0px 0px rgba(0, 0, 0, 0.24);
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+th {
+  width: 25%;
+  text-align: center;
+}
+
+@media screen and (max-width: 575px) {
+  .wrapper {
+    width: 95%;
+  }
+}

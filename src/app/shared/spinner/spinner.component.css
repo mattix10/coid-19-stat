@@ -1,0 +1,11 @@
+.loading-wrapper {
+  text-align: center;
+}
+
+.loading-title {
+  margin: 5px;
+}
+
+mat-spinner {
+  margin: auto;
+}

@@ -1,0 +1,57 @@
+.sidebar {
+  width: 250px;
+  height: 100%;
+  min-height: 100vh;
+  position: fixed;
+  margin-left: 0;
+  top: 60px;
+  padding: 15px 0;
+  z-index: 999;
+  background-color: white;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.12), 0 0px 0px rgba(0, 0, 0, 0.24);
+  transition: margin-left 0.5s ease-in-out;
+}
+
+.links {
+  cursor: pointer;
+  padding: 0;
+}
+
+.links-main {
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.links-main:hover {
+  background-color: rgb(235, 231, 231);
+}
+
+.links-main-title {
+  font-size: 18px;
+  font-weight: 550;
+  text-decoration: none;
+  color: #59595a;
+}
+
+.list-links {
+  padding: 5px 25px;
+  cursor: pointer;
+}
+
+.list-links:hover {
+  color: black;
+}
+
+.link {
+  text-decoration: none;
+  color: grey;
+  padding: 5px 20px 5px 20px;
+  height: 100%;
+}
+
+@media screen and (max-width: 767.98px) {
+  .hide {
+    margin-left: -260px;
+    transition: margin-left 0.5s ease-in-out;
+  }
+}

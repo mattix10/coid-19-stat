@@ -1,0 +1,67 @@
+<div class="infobar" *ngIf="data" [class.hide]="!displayInfoBar">
+  <div class="data-tile-input">
+    <mat-form-field appearance="fill" class="example-form-field">
+      <mat-label>Dane z dnia</mat-label>
+      <input
+        [value]="defaultDate.value"
+        matInput
+        [matDatepicker]="datepicker"
+        (dateInput)="setDate($event.value)"
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="datepicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #datepicker> </mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <div class="data-tile-input">
+    <mat-form-field appearance="fill">
+      <mat-label>Kraj</mat-label>
+      <mat-select
+        (selectionChange)="setCountry($event.value)"
+        name="country"
+        [value]="defaultCountry"
+      >
+        <mat-option *ngFor="let country of countries" [value]="country">
+          {{ country }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="data-tile">
+    <p class="data-title">Ilość zakażeń</p>
+    <p>
+      <span class="text-red text-bold"
+        >+{{ data.cases.new ? data.cases.new : "brak" }}</span
+      >
+      /
+      {{ data.cases.total ? data.cases.total : "brak" }}
+    </p>
+  </div>
+
+  <div class="data-tile">
+    <p class="data-title">Ilość zgonów</p>
+    <p>
+      <span class="text-bold"
+        >+{{ data.deaths.new ? data.deaths.new : "brak" }}</span
+      >
+      /
+      {{ data.deaths.total ? data.deaths.total : "brak" }}
+    </p>
+  </div>
+
+  <div class="data-tile">
+    <p class="data-title">Ilość testów</p>
+    <p>
+      <span class="text-blue text-bold">{{
+        data.tests.total ? data.tests.total : "brak"
+      }}</span>
+    </p>
+  </div>
+  <div class="visibility-tile" (click)="showInfoBar()">
+    <span>{{ displayInfoBar ? "Ukryj" : "Rozwiń" }}</span>
+  </div>
+</div>
