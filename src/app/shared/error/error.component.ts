@@ -10,8 +10,4 @@ export class ErrorComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
-
-  refresh(): void {
-    location.reload();
-  }
 }
