@@ -13,3 +13,5 @@ I used standard routing, without lazy-modules, as there are no administrator fun
 
 I thought about using the classes in the BEM methodology, but finally decided to use the standard, dashed classes.
 
+##Demo
+https://stats-cov-19.netlify.app/
