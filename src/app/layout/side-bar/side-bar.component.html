@@ -1,0 +1,87 @@
+<div class="sidebar" [class.hide]="!displaySideBar">
+  <div
+    matRipple
+    class="links-main"
+    [routerLink]="['/history']"
+    (click)="closeSideBar()"
+  >
+    <span class="links-main-title">Dane historyczne</span>
+  </div>
+
+  <ul class="links" routerLink="/history" (click)="closeSideBar()">
+    <ng-container *ngIf="router.url == '/history'">
+      <li
+        class="list-links"
+        matRipple
+        [routerLink]="['/history']"
+        fragment="newCases"
+      >
+        <span class="link">Nowe przypadki</span>
+      </li>
+      <li
+        matRipple
+        class="list-links"
+        [routerLink]="['/history']"
+        fragment="newDeaths"
+      >
+        <span class="link">Nowe zgony</span>
+      </li>
+      <li
+        matRipple
+        class="list-links"
+        [routerLink]="['/history']"
+        fragment="cases"
+      >
+        <span class="link">Porównanie przypadków</span>
+      </li>
+      <li
+        matRipple
+        class="list-links"
+        [routerLink]="['/history']"
+        fragment="tests"
+      >
+        <span class="link">Testy</span>
+      </li>
+      <li
+        matRipple
+        class="list-links"
+        [routerLink]="['/history']"
+        fragment="criticalCases"
+      >
+        <span class="link">Krytyczne przypadki</span>
+      </li>
+      <li
+        matRipple
+        class="list-links"
+        [routerLink]="['/history']"
+        fragment="recoveredCases"
+      >
+        <span class="link">Ozdrowieńcy</span>
+      </li>
+      <li
+        matRipple
+        class="list-links"
+        [routerLink]="['/history']"
+        fragment="totalCases"
+      >
+        <span class="link">Wszystkie przypadki</span>
+      </li>
+    </ng-container>
+  </ul>
+
+  <div routerLink="/statistics">
+    <div matRipple class="links-main" (click)="closeSideBar()">
+      <a [routerLink]="['/statistics']" class="links-main-title">Statystyki</a>
+    </div>
+    <ng-container *ngIf="router.url === '/statistics'">
+      <ul class="links">
+        <li matRipple class="list-links" (click)="displayCountries()">
+          <span class="link">Kraje</span>
+        </li>
+        <li matRipple class="list-links" (click)="displayContinents()">
+          <span class="link">Kontynenty</span>
+        </li>
+      </ul>
+    </ng-container>
+  </div>
+</div>
