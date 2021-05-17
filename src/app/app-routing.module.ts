@@ -12,6 +12,7 @@ const routes: Routes = [
     path: 'statistics',
     component: StatisticsComponent,
   },
+  { path: '', redirectTo: '/history', pathMatch: 'full' },
   {
     path: '**',
     redirectTo: 'history',
