@@ -18,14 +18,14 @@ export class InfoBarComponent {
   public defaultDate: FormControl = new FormControl(new Date('March 06, 2020'));
   public defaultCountry: string = 'USA';
   public displayInfoBar: boolean;
+  private showInfobarSubscription: any;
 
   constructor(public displayService: DisplayService) {}
 
   ngOnInit(): void {
-    this.displayService.showInfoBar.subscribe((data) => {
+    this.showInfobarSubscription = this.displayService.showInfoBar.subscribe((data) => {
       this.displayInfoBar = data;
     });
-    this.getWidthView();
   }
   setDate(date: Date): void {
     const formattedDate = formatDate(date);
@@ -40,13 +40,7 @@ export class InfoBarComponent {
     this.displayService.toggleInfoBar();
   }
 
-  getWidthView() {
-    const widthView = window.innerWidth;
-    const defaultWidth = 676;
-    if (widthView < defaultWidth) this.displayService.toggleSideBar();
+  ngOnDestroy(): void {
+    this.showInfobarSubscription.unsubscribe();
   }
-
-  // ngOnDestroy(): void {
-  //   this.displayService.showInfoBar.unsubscribe();
-  // }
 }
