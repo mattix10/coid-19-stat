@@ -10,11 +10,13 @@ import { DisplayService } from '../../core/services/display.service';
 export class SideBarComponent implements OnInit {
   constructor(public router: Router, public displayService: DisplayService) {}
   public displaySideBar: boolean;
-
+  private showSideBarSubscription: any;
+  
   ngOnInit(): void {
-    this.displayService.showSideBar.subscribe((data: boolean) => {
+    this.showSideBarSubscription = this.displayService.showSideBar.subscribe((data: boolean) => {
       this.displaySideBar = data;
     });
+    this.getWidthView();
   }
 
   closeSideBar(): void {
@@ -30,8 +32,14 @@ export class SideBarComponent implements OnInit {
     this.displayService.displayContinents();
     this.closeSideBar();
   }
+  
+  getWidthView(): void {
+    const widthView = window.innerWidth;
+    const defaultWidth = 676;
+    if (widthView < defaultWidth) this.displayService.toggleSideBar();
+  }
 
   ngOnDestroy(): void {
-    this.displayService.showSideBar.unsubscribe();
+    this.showSideBarSubscription.unsubscribe();
   }
 }
