@@ -32,11 +32,12 @@ export class StatisticsComponent implements OnInit {
   public state: boolean = true;
   public isFetchingStatistics;
   public error = null;
-
+  public displayCountry: boolean = true;
+  private showCountryTableSubscription: any;
+  
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  public displayCountry: boolean = true;
-
+  
   constructor(
     private http: HttpService,
     private displayService: DisplayService
@@ -66,7 +67,7 @@ export class StatisticsComponent implements OnInit {
 
   ngOnInit(): void {
     this.refresh();
-    this.displayService.showCountryTable.subscribe((data: any) => {
+    this.showCountryTableSubscription = this.displayService.showCountryTable.subscribe((data: any) => {
       this.displayCountry = data;
       this.checkState();
     });
@@ -110,6 +111,6 @@ export class StatisticsComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.displayService.showCountryTable.unsubscribe();
+    this.showCountryTableSubscription.unsubscribe();
   }
 }
