@@ -29,7 +29,6 @@ export class StatisticsComponent implements OnInit {
   public displayedColumns: string[] = ['country', 'cases', 'deaths', 'tests'];
   public countries: Array<Statistics> = [];
   public continents: Array<Statistics> = [];
-  public state: boolean = true;
   public isFetchingStatistics;
   public error = null;
   public displayCountry: boolean = true;
