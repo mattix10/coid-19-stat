@@ -16,14 +16,14 @@ export class CoreChartComponent implements AfterViewInit {
   @ViewChild('coreChart') coreChart: ElementRef;
   @Input('data') data: Array<string>;
   @Input('config') config: any;
-
+  @Input('day') day: string;
   drawChart = (): any => {
     const data = google.visualization.arrayToDataTable(this.data);
 
     const options = {
       title: '',
       hAxis: {
-        title: 'Godzina (statystyki dla USA z dnia 2020-06-03)',
+        title: `Godzina (statystyki z dnia ${this.day})`,
         titleTextStyle: { color: '#333' },
         direction: -1,
         showTextEvery: 21,

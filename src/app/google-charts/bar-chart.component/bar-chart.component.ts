@@ -16,10 +16,10 @@ export class BarChartComponent implements AfterViewInit {
   @ViewChild('bar') bar: ElementRef;
   @Input('cases') cases: Array<string>;
   @Input('config') config: any;
+  @Input('day') day: string;
 
   drawChart = (): any => {
     let data = new google.visualization.DataTable();
-    this.cases = Object.assign([], this.cases);
 
     data.addColumn('timeofday', ' ');
     data.addColumn('number', this.config.title);
@@ -27,7 +27,7 @@ export class BarChartComponent implements AfterViewInit {
 
     const options = {
       title: this.config.title,
-      subtitle: 'Statystyki dla USA z dnia 2020-06-03',
+      subtitle: `Statystyki z dnia ${this.day}`,
       legend: { position: 'none' },
       height: '450px',
       colors: this.config.color,
@@ -39,7 +39,7 @@ export class BarChartComponent implements AfterViewInit {
     window.addEventListener('resize', this.drawChart, false);
   };
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     google.charts.load('current', { packages: ['bar'] });
     google.charts.setOnLoadCallback(this.drawChart);
   }
