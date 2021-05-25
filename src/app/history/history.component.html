@@ -12,47 +12,68 @@
   <app-spinner *ngIf="isFetchingCountries"></app-spinner>
 
   <div *ngIf="!isFetchingHistory && !error">
-    <div class="chart-wrapper" id="newCases">
+    <div class="chart-wrapper" id="newCases" *ngIf="newCases.length > 3">
       <app-bar-chart
         [cases]="newCases"
         [config]="config.newCases"
+        [day]="day"
       ></app-bar-chart>
     </div>
 
-    <div class="chart-wrapper" id="newDeaths">
+    <div class="chart-wrapper" id="newDeaths" *ngIf="newDeaths.length > 3">
       <app-bar-chart
         [cases]="newDeaths"
         [config]="config.newDeaths"
+        [day]="day"
       ></app-bar-chart>
     </div>
 
-    <div class="chart-wrapper" id="cases">
-      <app-core-chart [data]="cases" [config]="config.cases"></app-core-chart>
-    </div>
-
-    <div class="chart-wrapper" id="tests">
-      <app-core-chart [data]="tests" [config]="config.tests"></app-core-chart>
-    </div>
-
-    <div class="chart-wrapper" id="criticalCases">
+    <div class="chart-wrapper" id="cases" *ngIf="cases.length > 3">
       <app-core-chart
-        [data]="criticalCases"
-        [config]="config.criticalCases"
+        [data]="cases"
+        [config]="config.cases"
+        [day]="day"
       ></app-core-chart>
     </div>
 
-    <div class="chart-wrapper" id="recoveredCases">
+    <div class="chart-wrapper" id="tests" *ngIf="tests.length > 3">
+      <app-core-chart
+        [data]="tests"
+        [config]="config.tests"
+        [day]="day"
+      ></app-core-chart>
+    </div>
+
+    <div
+      class="chart-wrapper"
+      id="criticalCases"
+      *ngIf="criticalCases.length > 3"
+    >
+      <app-core-chart
+        [data]="criticalCases"
+        [config]="config.criticalCases"
+        [day]="day"
+      ></app-core-chart>
+    </div>
+
+    <div
+      class="chart-wrapper"
+      id="recoveredCases"
+      *ngIf="recoveredCases.length > 3"
+    >
       <app-core-chart
         class="t"
         [data]="recoveredCases"
         [config]="config.recoveredCases"
+        [day]="day"
       ></app-core-chart>
     </div>
 
-    <div class="chart-wrapper" id="totalCases">
+    <div class="chart-wrapper" id="totalCases" *ngIf="totalCases.length > 3">
       <app-core-chart
         [data]="totalCases"
         [config]="config.totalCases"
+        [day]="day"
       ></app-core-chart>
     </div>
 

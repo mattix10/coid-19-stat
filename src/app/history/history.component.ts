@@ -12,7 +12,7 @@ import { CoreChart } from '../shared/models/CoreChart.model';
 import { catchError, map } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 
-const CONFIG: object = {
+let CONFIG: object = {
   newCases: {
     color: 'rgb(21, 135, 211)',
     title: 'Liczba nowych przypadków zachorowań',
@@ -44,17 +44,13 @@ const CONFIG: object = {
   styleUrls: ['./history.component.css'],
 })
 export class HistoryComponent implements OnInit {
-  public cases: CoreChart = [
-    ['Godzina', 'Aktywnie zakażeni', 'W stanie krytycznym', 'Wyzdrowiałych'],
-  ];
-  public tests: CoreChart = [['Godzina', 'Ilość testów na milion mieszkańców']];
-  public criticalCases: CoreChart = [
-    ['Godzina', 'Ilość pacjentów w stanie krytycznym'],
-  ];
-  public recoveredCases: CoreChart = [['Godzina', 'Ilość wyzdrowień']];
-  public totalCases: CoreChart = [['Godzina', 'Ilość przypadków']];
-  public newCases: BarChart = [];
-  public newDeaths: BarChart = [];
+  public newCases: BarChart;
+  public newDeaths: BarChart;
+  public cases: CoreChart;
+  public tests: CoreChart;
+  public criticalCases: CoreChart;
+  public recoveredCases: CoreChart;
+  public totalCases: CoreChart;
   public config: object = CONFIG;
   public countryInfo: CountryInfo;
   public day: string = '2020-06-03';
@@ -63,6 +59,7 @@ export class HistoryComponent implements OnInit {
   public isFetchingHistory: boolean;
   public isFetchingCountries: boolean;
   public updateCountryInfo: boolean = false;
+  public minDataDisplay: number = 4;
   public error: string | null = null;
 
   constructor(public HttpService: HttpService) {}
@@ -77,6 +74,7 @@ export class HistoryComponent implements OnInit {
     this.day = newDate;
     this.error = null;
     this.onFetchHistory();
+    window.scrollTo(0, 0);
   }
 
   setNewCountry(newCountry: string): void {
@@ -103,6 +101,8 @@ export class HistoryComponent implements OnInit {
   onFetchHistory(): void {
     this.isFetchingHistory = true;
 
+    this.initArrays();
+
     this.HttpService.getHistory(this.country, this.day)
       .pipe(
         map((data) => data.response),
@@ -117,12 +117,27 @@ export class HistoryComponent implements OnInit {
         if (!response.length) {
           this.setEmptyCountryInfo();
           this.error =
-            'Nieprawidłowe dane lub brak danych do wyświetlenia. Spróbuj ponownie.';
+            'Nieprawidłowe dane lub za mało danych, aby móc wyświetlić wykresy. Spróbuj ponownie.';
         } else this.countryInfo = destructItem(response[0]);
 
-        if (!this.updateCountryInfo) this.fillArrays(response);
+        if (response.length < this.minDataDisplay && this.error == null)
+          this.error = 'Za mało danych, aby móc wyświetlić wykresy';
+        else this.fillArrays(response);
+
         this.updateCountryInfo = false;
       });
+  }
+
+  initArrays(): void {
+    this.newCases = [];
+    this.newDeaths = [];
+    this.cases = [
+      ['Godzina', 'Aktywnie zakażeni', 'W stanie krytycznym', 'Wyzdrowiałych'],
+    ];
+    this.tests = [['Godzina', 'Ilość testów na milion mieszkańców']];
+    this.criticalCases = [['Godzina', 'Ilość pacjentów w stanie krytycznym']];
+    this.recoveredCases = [['Godzina', 'Ilość wyzdrowień']];
+    this.totalCases = [['Godzina', 'Ilość przypadków']];
   }
 
   fillArrays(array: Array<any>): void {
@@ -140,14 +155,17 @@ export class HistoryComponent implements OnInit {
   }
 
   fillNewCases(o): void {
+    if (Number.isNaN(parseInt(o.cases.new))) return;
     this.newCases.push([getDateAsArray(o.time), parseInt(o.cases.new)]);
   }
 
   fillNewDeaths(o): void {
+    if (Number.isNaN(parseInt(o.deaths.new))) return;
     this.newDeaths.push([getDateAsArray(o.time), parseInt(o.deaths.new)]);
   }
 
   fillRecoveredCases(o): void {
+    if (Number.isNaN(parseInt(o.cases.recovered))) return;
     this.recoveredCases.push([
       getDateAsHours(o.time),
       parseInt(o.cases.recovered),
@@ -155,10 +173,12 @@ export class HistoryComponent implements OnInit {
   }
 
   fillTests(o): void {
+    if (Number.isNaN(parseInt(o.tests['1M_pop']))) return;
     this.tests.push([getDateAsHours(o.time), parseInt(o.tests['1M_pop'])]);
   }
 
   fillCriticalCases(o): void {
+    if (Number.isNaN(parseInt(o.cases.critical))) return;
     this.criticalCases.push([getDateAsHours(o.time), o.cases.critical]);
   }
 
