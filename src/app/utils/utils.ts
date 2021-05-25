@@ -46,9 +46,16 @@ export function getDateAsArray(time: string): Number[] {
 export function formatDate(date: Date): string {
   const startDatePosition = 0;
   const endDatePosition = 10;
-  const formattedDate = new Date(date)
-    .toISOString()
-    .substring(startDatePosition, endDatePosition);
+  let dateAsLocalDate = new Date(date).toLocaleDateString();
+
+  if (dateAsLocalDate[1] == '.') dateAsLocalDate = `0${dateAsLocalDate}`;
+
+  const dateAsArray = dateAsLocalDate
+    .substring(startDatePosition, endDatePosition)
+    .split('.');
+
+  const formattedDate = `${dateAsArray[2]}-${dateAsArray[1]}-${dateAsArray[0]}`;
+
   return formattedDate;
 }
 
